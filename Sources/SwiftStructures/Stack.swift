@@ -9,15 +9,11 @@ import Foundation
 
 public struct Stack<Value: Codable & Hashable>: Equatable, Codable {
     private var top: Node<Value>?
-    private var _count: Int
+    public private(set) var count: Int
 
     public init() {
         self.top = .none
-        self._count = 0
-    }
-
-    public var count: Int {
-        _count
+        self.count = 0
     }
 
     public var isEmpty: Bool {
@@ -35,7 +31,7 @@ public struct Stack<Value: Codable & Hashable>: Equatable, Codable {
     public mutating func push(_ item: Value) {
         let currentTop = top
         top = Node(value: item, next: currentTop)
-        _count += 1
+        count += 1
     }
 
     @discardableResult
@@ -45,7 +41,7 @@ public struct Stack<Value: Codable & Hashable>: Equatable, Codable {
 
         guard let removedItem = currentTop?.value else { return nil }
 
-        _count -= 1
+        count -= 1
         return removedItem
     }
 
